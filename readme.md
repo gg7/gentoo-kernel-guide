@@ -37,7 +37,6 @@ Advantages of my approach (summary; see below for full explanation):
 * Building and installing the kernel
   * compilation is not done as root
   * `-march=native` is used
-  * explicitly mention that `make prepare` is required
 
 Disadvantages of my approach:
 
@@ -153,6 +152,19 @@ george@george:~$ sudo mkdir -p /etc/portage/profile/
 george@george:~$ echo 'sys-kernel/vanilla-sources-4.12.8' | sudo tee --append /etc/portage/profile/package.provided
 george@george:~$ sudo emerge -aC gentoo-sources vanilla-sources # ...
 ```
+
+This is possibly a bad idea, because now `depclean` could uninstall some required packages:
+
+    * dependency graph for sys-kernel/gentoo-sources-4.12.8
+    `--  sys-kernel/gentoo-sources-4.12.8  [~amd64 keyword] 
+      `--  sys-apps/sed-4.2.2  (sys-apps/sed) amd64 
+      `--  sys-devel/binutils-2.28-r2  (>=sys-devel/binutils-2.11.90.0.31) amd64 
+      `--  sys-libs/ncurses-6.0-r1  (>=sys-libs/ncurses-5.2) amd64 
+      `--  sys-devel/make-4.2.1  (sys-devel/make) amd64 
+      `--  dev-lang/perl-5.24.1-r2  (dev-lang/perl) amd64 
+      `--  sys-devel/bc-1.06.95-r1  (sys-devel/bc) amd64 
+
+You should probably add those to `@world`.
 
 ## Configuring the kernel
 
@@ -481,15 +493,14 @@ TODO: write an script that checks everything.
 
 ## Building and installing the kernel
 
-`make prepare` is needed for e.g. virtualbox modules. `make install` requires
-`sys-apps/debianutils`.
+`make install` requires `sys-apps/debianutils`.
 
 ```bash
 george@george:/usr/src$ eselect kernel list
 george@george:/usr/src$ sudo eselect kernel set "linux-stable-git-4.12.8"
 george@george:/usr/src$ cd linux
 
-george@george:/usr/src/linux$ /usr/bin/time -v make KCFLAGS="-march=native" -j "$(nproc)" olddefconfig prepare modules_prepare all
+george@george:/usr/src/linux$ /usr/bin/time -v make KCFLAGS="-march=native" -j "$(nproc)" olddefconfig all
 
 root@george:/usr/src/linux# (mountpoint -q /boot || mount /boot) && make install modules_install && grub-mkconfig -o /boot/grub/grub.cfg
 root@george:/usr/src/linux# emerge -avtq '@module-rebuild'
