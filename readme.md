@@ -155,6 +155,7 @@ george@george:~$ sudo emerge -aC gentoo-sources vanilla-sources # ...
 
 This is possibly a bad idea, because now `depclean` could uninstall some required packages:
 
+    george@george:~$ equery depgraph '=gentoo-sources-4.12.8'
     * dependency graph for sys-kernel/gentoo-sources-4.12.8
     `--  sys-kernel/gentoo-sources-4.12.8  [~amd64 keyword] 
       `--  sys-apps/sed-4.2.2  (sys-apps/sed) amd64 
