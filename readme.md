@@ -43,7 +43,7 @@ Disadvantages of my approach:
 * ~1.5 GB extra space for `.git` (fixed cost if not using shallow clones, regardless of number of kernels)
 * You don't get any patches from the Gentoo kernel team (e.g. aufs, grsecurity, small fixes/improvements)
 
-# Target audience
+# Required reading
 
 I won't go over the basics of kernel configuration here -- that's already
 described here:
