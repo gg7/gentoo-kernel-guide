@@ -220,6 +220,9 @@ The few advantages of a "from-scratch" config:
   * `allnoconfig`: 55s user, 6s system, 20s wall
 * You save up to 200 MB of disk space (no unnecessary modules)
 * You save a few milliseconds/seconds when booting up
+* Reduced attack surface
+* Tiny memory savings
+* Good learning experience
 
 I'd argue that most folks would be better off sticking with gentoo-sources +
 [genkernel](https://wiki.gentoo.org/wiki/Genkernel) or any of the popular
