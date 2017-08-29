@@ -128,7 +128,7 @@ Finally, the actual guide. I like having 1 "master" bare repo per remote tree:
 
 ```bash
 george@george:/usr/src$ sudo mkdir -p linux-stable-git-bare && sudo chown george:george linux-stable-git-bare
-george@george:/usr/src$ git clone --bare 'https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git' linux-stable-git-bare
+george@george:/usr/src$ git clone --mirror --bare 'https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git' linux-stable-git-bare
 ```
 
 For every version I'm interested in (e.g. `4.12.8`):
