@@ -214,10 +214,10 @@ The few advantages of a "from-scratch" config:
 * 5-10x faster compilation (depending on selections). E.g. `make -j4` on a
   quad-core Intel i7 7700K CPU @ 4.5 GHz, Linux 4.12, gcc 5.4.0, with
   everything on a ramdisk:
-  * [random Ubuntu config](http://kernel.ubuntu.com/~kernel-ppa/configs/xenial/linux/4.4.0-93.116/amd64-config.flavour.generic): 3950s user, 312s system, 1166s wall
-  * `defconfig` + minor changes: 624s user, 47s system, 190s wall
-  * `defconfig`: 472s user, 38s system, 145s wall
   * `allnoconfig`: 55s user, 6s system, 20s wall
+  * `defconfig`: 472s user, 38s system, 145s wall
+  * `defconfig` + minor changes: 624s user, 47s system, 190s wall
+  * [random Ubuntu config](http://kernel.ubuntu.com/~kernel-ppa/configs/xenial/linux/4.4.0-93.116/amd64-config.flavour.generic): 3950s user, 312s system, 1166s wall
 * You save up to 200 MB of disk space (no unnecessary modules)
 * You save a few milliseconds/seconds when booting up
 * Reduced attack surface
