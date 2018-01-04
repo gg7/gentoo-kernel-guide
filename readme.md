@@ -282,319 +282,299 @@ Here's what I do:
 "$(dirname "$0")/hardware/$(hostname).sh"
 
 # /proc/config.gz
-./scripts/config --enable IKCONFIG
-./scripts/config --enable IKCONFIG_PROC
-
-# wonder patch
-./scripts/config --enable SCHED_AUTOGROUP
-
-# required for CHECKPOINT_RESTORE
-./scripts/config --enable EXPERT
+./scripts/config --enable IKCONFIG      # tristate
+./scripts/config --enable IKCONFIG_PROC # boolean
 
 # gentoo-sources ( https://gitweb.gentoo.org/proj/linux-patches.git/tree/4567_distro-Gentoo-Kconfig.patch ):
-./scripts/config --enable DEVTMPFS
-./scripts/config --enable TMPFS
-./scripts/config --enable UNIX
-./scripts/config --enable MMU
-./scripts/config --enable SHMEM
-# gentoo/portage:
-./scripts/config --enable CGROUPS
-./scripts/config --enable NAMESPACES
-./scripts/config --enable IPC_NS
-./scripts/config --enable NET_NS
-./scripts/config --enable SYSVIPC
-# openrc/runit support
-./scripts/config --enable BINFMT_SCRIPT
-# gentoo/systemd:
-./scripts/config --enable AUTOFS4_FS
-./scripts/config --enable BLK_DEV_BSG
-./scripts/config --enable CGROUPS
-./scripts/config --enable CHECKPOINT_RESTORE
-./scripts/config --enable CRYPTO_HMAC
-./scripts/config --enable CRYPTO_SHA256
-./scripts/config --enable CRYPTO_USER_API_HASH
-./scripts/config --enable DEVPTS_MULTIPLE_INSTANCES # removed -- https://patchwork.kernel.org/patch/9186935/
-./scripts/config --enable DMIID
-./scripts/config --enable EPOLL
-./scripts/config --enable FANOTIFY
-./scripts/config --enable FHANDLE
-./scripts/config --enable INOTIFY_USER
-./scripts/config --enable IPV6
-./scripts/config --enable NET
-./scripts/config --enable NET_NS
-./scripts/config --enable PROC_FS
-./scripts/config --enable SECCOMP
-./scripts/config --enable SECCOMP_FILTER
-./scripts/config --enable SIGNALFD
-./scripts/config --enable SYSFS
-./scripts/config --enable TIMERFD
-./scripts/config --enable TMPFS_POSIX_ACL
-./scripts/config --enable TMPFS_XATTR
-./scripts/config --enable ANON_INODES
-./scripts/config --enable BLOCK
-./scripts/config --enable EVENTFD
-./scripts/config --enable FSNOTIFY
-./scripts/config --enable INET
-./scripts/config --enable NLATTR
+./scripts/config --enable DEVTMPFS # boolean
+./scripts/config --enable TMPFS    # boolean
+./scripts/config --enable UNIX     # tristate
+./scripts/config --enable SHMEM    # boolean
 
-# Recommended by the Gentoo Handbook: "Also select Maintain a devtmpfs file system to mount at /dev so that critical device files are already available early in the boot process (CONFIG_DEVTMPFS and DEVTMPFS_MOUNT)":
-./scripts/config --enable DEVTMPFS
-./scripts/config --enable DEVTMPFS_MOUNT
+# gentoo/portage:
+./scripts/config --enable CGROUPS    # boolean
+./scripts/config --enable NAMESPACES # boolean
+./scripts/config --enable IPC_NS     # boolean
+./scripts/config --enable NET_NS     # boolean
+./scripts/config --enable SYSVIPC    # boolean
+
+# openrc/runit support
+./scripts/config --enable BINFMT_SCRIPT # tristate
+
+# Recommended by the Gentoo Handbook: "Also select Maintain a devtmpfs file
+# system to mount at /dev so that critical device files are already available
+# early in the boot process (CONFIG_DEVTMPFS and DEVTMPFS_MOUNT)":
+./scripts/config --enable DEVTMPFS       # boolean
+./scripts/config --enable DEVTMPFS_MOUNT # boolean
+
+# required for CHECKPOINT_RESTORE
+./scripts/config --enable EXPERT # boolean
+
+# systemd -- gentoo ebuild:
+./scripts/config --enable AUTOFS4_FS           # tristate
+./scripts/config --enable BLK_DEV_BSG          # boolean
+./scripts/config --enable CGROUPS              # boolean
+./scripts/config --enable CHECKPOINT_RESTORE   # boolean
+./scripts/config --enable CRYPTO_HMAC          # tristate
+./scripts/config --enable CRYPTO_SHA256        # tristate
+./scripts/config --enable CRYPTO_USER_API_HASH # tristate
+# ./scripts/config --enable DEVPTS_MULTIPLE_INSTANCES # removed -- https://github.com/torvalds/linux/commit/eedf265aa003
+./scripts/config --enable DMIID                # boolean
+./scripts/config --enable EPOLL                # boolean
+./scripts/config --enable FANOTIFY             # boolean
+./scripts/config --enable FHANDLE              # boolean
+./scripts/config --enable INOTIFY_USER         # boolean
+./scripts/config --enable IPV6                 # tristate
+./scripts/config --enable NET                  # boolean
+./scripts/config --enable NET_NS               # boolean
+./scripts/config --enable PROC_FS              # boolean
+./scripts/config --enable SECCOMP              # boolean
+./scripts/config --enable SECCOMP_FILTER       # boolean
+./scripts/config --enable SIGNALFD             # boolean
+./scripts/config --enable SYSFS                # boolean
+./scripts/config --enable TIMERFD              # boolean
+./scripts/config --enable TMPFS_POSIX_ACL      # boolean
+./scripts/config --enable TMPFS_XATTR          # boolean
+./scripts/config --enable ANON_INODES          # boolean
+./scripts/config --enable BLOCK                # boolean
+./scripts/config --enable EVENTFD              # boolean
+./scripts/config --enable FSNOTIFY             # boolean
+./scripts/config --enable INET                 # boolean
+./scripts/config --enable NLATTR               # boolean
+
+# systemd -- extra things from https://cgit.freedesktop.org/systemd/systemd/tree/README
+./scripts/config --enable DEVTMPFS               # boolean
+./scripts/config --disable SYSFS_DEPRECATED      # boolean
+./scripts/config --set-str UEVENT_HELPER_PATH ""
+./scripts/config --disable FW_LOADER_USER_HELPER # boolean
+./scripts/config --enable EXT4_FS_POSIX_ACL      # boolean
+./scripts/config --enable BTRFS_FS_POSIX_ACL     # boolean
+./scripts/config --enable CGROUP_SCHED           # boolean
+./scripts/config --enable FAIR_GROUP_SCHED       # boolean
+./scripts/config --enable CFS_BANDWIDTH          # boolean
+./scripts/config --enable SCHEDSTATS             # boolean
+./scripts/config --enable SCHED_DEBUG            # boolean
+./scripts/config --enable EFIVAR_FS              # tristate
+./scripts/config --enable EFI_PARTITION          # boolean
+# ./scripts/config --disable RT_GROUP_SCHED      # boolean, docker wants this
+# ./scripts/config --disable AUDIT               # boolean, conflicts with consolekit
 
 # chromium
-./scripts/config --enable PID_NS
-./scripts/config --enable NET_NS
-./scripts/config --enable SECCOMP_FILTER
-./scripts/config --enable USER_NS
-./scripts/config --enable ADVISE_SYSCALLS
-./scripts/config --disable COMPAT_VDSO
+./scripts/config --enable PID_NS          # boolean
+./scripts/config --enable NET_NS          # boolean
+./scripts/config --enable SECCOMP_FILTER  # boolean
+./scripts/config --enable USER_NS         # boolean
+./scripts/config --enable ADVISE_SYSCALLS # boolean
+./scripts/config --disable COMPAT_VDSO    # boolean
 
 # qemu for kernel dev
-./scripts/config --enable VIRTIO_PCI
-./scripts/config --enable VIRTIO_BLK
-./scripts/config --enable VIRTIO_NET
-./scripts/config --enable VIRTIO
-./scripts/config --module 9P_FS
-./scripts/config --module NET_9P
-./scripts/config --module NET_9P_VIRTIO
+./scripts/config --module VIRTIO_PCI    # tristate
+./scripts/config --module VIRTIO_BLK    # tristate
+./scripts/config --module VIRTIO_NET    # tristate
+./scripts/config --module 9P_FS         # tristate
+./scripts/config --module NET_9P        # tristate
+./scripts/config --module NET_9P_VIRTIO # tristate
 
 # lm_sensors
-./scripts/config --enable I2C_CHARDEV
+./scripts/config --enable I2C_CHARDEV # tristate
 
 # cryptsetup, luks (according to gentoo wiki page)
-./scripts/config --enable BLK_DEV_DM
-./scripts/config --enable DM_CRYPT
-./scripts/config --enable CRYPTO_AES_X86_64
-./scripts/config --enable CRYPTO_XTS
-./scripts/config --enable CRYPTO_SHA256
-./scripts/config --enable CRYPTO_USER_API_SKCIPHER
+./scripts/config --enable BLK_DEV_DM               # tristate
+./scripts/config --enable DM_CRYPT                 # tristate
+./scripts/config --enable CRYPTO_AES_X86_64        # tristate
+./scripts/config --enable CRYPTO_XTS               # tristate
+./scripts/config --enable CRYPTO_SHA256            # tristate
+./scripts/config --enable CRYPTO_USER_API_SKCIPHER # tristate
 
 # openvpn
-./scripts/config --enable TUN
+./scripts/config --module TUN # tristate
 
 # cups
-./scripts/config --enable USB_PRINTER
+./scripts/config --module USB_PRINTER # tristate
 
 # pulseaudio
 ./scripts/config --set-val SND_HDA_PREALLOC_SIZE 2048
 
 # Docker (useful: contrib/check-config.sh)
 # "Generally Necessary"
-./scripts/config --enable NAMESPACES # boolean
-./scripts/config --enable NET_NS # boolean
-./scripts/config --enable PID_NS # boolean
-./scripts/config --enable IPC_NS # boolean
-./scripts/config --enable UTS_NS # boolean
-./scripts/config --enable CGROUPS # boolean
-./scripts/config --enable CGROUP_CPUACCT # boolean
-./scripts/config --enable CGROUP_DEVICE # boolean
-./scripts/config --enable CGROUP_FREEZER # boolean
-./scripts/config --enable CGROUP_SCHED # boolean
-./scripts/config --enable CPUSETS # boolean
-./scripts/config --enable MEMCG # boolean
-./scripts/config --enable KEYS # boolean
-./scripts/config --module VETH # tristate
-./scripts/config --module BRIDGE # tristate
-./scripts/config --module NETFILTER_ADVANCED # implicit requirement for BRIDGE_NETFILTER
-./scripts/config --module BRIDGE_NETFILTER # tristate
-./scripts/config --module NF_NAT_IPV4 # tristate
-./scripts/config --module IP_NF_FILTER # tristate
-./scripts/config --module IP_NF_TARGET_MASQUERADE # tristate
-./scripts/config --module NETFILTER_XT_MATCH_ADDRTYPE # tristate
+./scripts/config --enable NAMESPACES                   # boolean
+./scripts/config --enable NET_NS                       # boolean
+./scripts/config --enable PID_NS                       # boolean
+./scripts/config --enable IPC_NS                       # boolean
+./scripts/config --enable UTS_NS                       # boolean
+./scripts/config --enable CGROUPS                      # boolean
+./scripts/config --enable CGROUP_CPUACCT               # boolean
+./scripts/config --enable CGROUP_DEVICE                # boolean
+./scripts/config --enable CGROUP_FREEZER               # boolean
+./scripts/config --enable CGROUP_SCHED                 # boolean
+./scripts/config --enable CPUSETS                      # boolean
+./scripts/config --enable MEMCG                        # boolean
+./scripts/config --enable KEYS                         # boolean
+./scripts/config --module VETH                         # tristate
+./scripts/config --module BRIDGE                       # tristate
+./scripts/config --module NETFILTER_ADVANCED           # boolean, implicit requirement for BRIDGE_NETFILTER
+./scripts/config --module BRIDGE_NETFILTER             # tristate
+./scripts/config --module NF_NAT_IPV4                  # tristate
+./scripts/config --module IP_NF_FILTER                 # tristate
+./scripts/config --module IP_NF_TARGET_MASQUERADE      # tristate
+./scripts/config --module NETFILTER_XT_MATCH_ADDRTYPE  # tristate
 ./scripts/config --module NETFILTER_XT_MATCH_CONNTRACK # tristate
-./scripts/config --module NETFILTER_XT_MATCH_IPVS # tristate
-./scripts/config --module IP_NF_NAT # tristate
-./scripts/config --module NF_NAT # tristate
-./scripts/config --enable NF_NAT_NEEDED # boolean
-./scripts/config --enable POSIX_MQUEUE # boolean
+./scripts/config --module NETFILTER_XT_MATCH_IPVS      # tristate
+./scripts/config --module IP_NF_NAT                    # tristate
+./scripts/config --module NF_NAT                       # tristate
+./scripts/config --enable NF_NAT_NEEDED                # boolean
+./scripts/config --enable POSIX_MQUEUE                 # boolean
 # "Optional Features"
-./scripts/config --enable USER_NS # boolean
-./scripts/config --enable SECCOMP # boolean
-./scripts/config --enable CGROUP_PIDS # boolean
-./scripts/config --enable MEMCG_SWAP # boolean
-./scripts/config --enable MEMCG_SWAP_ENABLED # boolean
-./scripts/config --enable LEGACY_VSYSCALL_EMULATE # boolean
-./scripts/config --enable BLK_CGROUP # boolean
-./scripts/config --enable BLK_DEV_THROTTLING # boolean
-./scripts/config --module IOSCHED_CFQ # tristate
-./scripts/config --enable CFQ_GROUP_IOSCHED # boolean
-./scripts/config --enable CGROUP_PERF # boolean
-./scripts/config --enable CGROUP_HUGETLB # boolean
-./scripts/config --module NET_CLS_CGROUP # tristate
-./scripts/config --enable CGROUP_NET_PRIO # boolean
-./scripts/config --enable CFS_BANDWIDTH # boolean
-./scripts/config --enable FAIR_GROUP_SCHED # boolean
-./scripts/config --enable RT_GROUP_SCHED # boolean
-./scripts/config --module IP_VS # tristate
-./scripts/config --enable IP_VS_NFCT # boolean
-./scripts/config --module IP_VS_RR # tristate
-./scripts/config --enable EXT4_FS # tristate
-./scripts/config --enable EXT4_FS_POSIX_ACL # boolean
-./scripts/config --enable EXT4_FS_SECURITY # boolean
+./scripts/config --enable USER_NS                      # boolean
+./scripts/config --enable SECCOMP                      # boolean
+./scripts/config --enable CGROUP_PIDS                  # boolean
+./scripts/config --enable MEMCG_SWAP                   # boolean
+./scripts/config --enable MEMCG_SWAP_ENABLED           # boolean
+./scripts/config --enable LEGACY_VSYSCALL_EMULATE      # boolean
+./scripts/config --enable BLK_CGROUP                   # boolean
+./scripts/config --enable BLK_DEV_THROTTLING           # boolean
+./scripts/config --module IOSCHED_CFQ                  # tristate
+./scripts/config --enable CFQ_GROUP_IOSCHED            # boolean
+./scripts/config --enable CGROUP_PERF                  # boolean
+./scripts/config --enable CGROUP_HUGETLB               # boolean
+./scripts/config --module NET_CLS_CGROUP               # tristate
+./scripts/config --enable CGROUP_NET_PRIO              # boolean
+./scripts/config --enable CFS_BANDWIDTH                # boolean
+./scripts/config --enable FAIR_GROUP_SCHED             # boolean
+./scripts/config --enable RT_GROUP_SCHED               # boolean
+./scripts/config --module IP_VS                        # tristate
+./scripts/config --enable IP_VS_NFCT                   # boolean
+./scripts/config --module IP_VS_RR                     # tristate
+./scripts/config --enable EXT4_FS                      # tristate
+./scripts/config --enable EXT4_FS_POSIX_ACL            # boolean
+./scripts/config --enable EXT4_FS_SECURITY             # boolean
 # "Network Drivers/overlay"
-./scripts/config --module VXLAN # tristate
+./scripts/config --module VXLAN                        # tristate
 # "Network Drivers/overlay/Optional (for encrypted networks)":
-./scripts/config --enable CRYPTO # tristate
-./scripts/config --enable CRYPTO_AEAD # tristate
-./scripts/config --enable CRYPTO_GCM # tristate
-./scripts/config --enable CRYPTO_SEQIV # tristate
-./scripts/config --enable CRYPTO_GHASH # tristate
-./scripts/config --enable XFRM # boolean
-./scripts/config --enable XFRM_USER # tristate
-./scripts/config --enable XFRM_ALGO # tristate
-./scripts/config --module INET_ESP # tristate
-./scripts/config --enable INET_XFRM_MODE_TRANSPORT # tristate
+./scripts/config --enable CRYPTO                       # tristate
+./scripts/config --enable CRYPTO_AEAD                  # tristate
+./scripts/config --enable CRYPTO_GCM                   # tristate
+./scripts/config --enable CRYPTO_SEQIV                 # tristate
+./scripts/config --enable CRYPTO_GHASH                 # tristate
+./scripts/config --enable XFRM                         # boolean
+./scripts/config --enable XFRM_USER                    # tristate
+./scripts/config --enable XFRM_ALGO                    # tristate
+./scripts/config --module INET_ESP                     # tristate
+./scripts/config --enable INET_XFRM_MODE_TRANSPORT     # tristate
 # "Network Drivers/ipvlan"
-./scripts/config --enable NET_L3_MASTER_DEV # boolean, required for IPVLAN
-./scripts/config --module IPVLAN # tristate
+./scripts/config --enable NET_L3_MASTER_DEV            # boolean, required for IPVLAN
+./scripts/config --module IPVLAN                       # tristate
 # macvlan
-./scripts/config --module MACVLAN # tristate
-./scripts/config --module DUMMY # tristate
+./scripts/config --module MACVLAN                      # tristate
+./scripts/config --module DUMMY                        # tristate
 # "ftp,tftp client in container"
-# ./scripts/config --module NF_NAT_FTP # tristate
-# ./scripts/config --module NF_CONNTRACK_FTP # tristate
-# ./scripts/config --module NF_NAT_TFTP # tristate
-# ./scripts/config --module NF_CONNTRACK_TFTP # tristate
+# ./scripts/config --module NF_NAT_FTP                   # tristate
+# ./scripts/config --module NF_CONNTRACK_FTP             # tristate
+# ./scripts/config --module NF_NAT_TFTP                  # tristate
+# ./scripts/config --module NF_CONNTRACK_TFTP            # tristate
 # "Storage Drivers"
-./scripts/config --enable BTRFS_FS # tristate
-./scripts/config --enable BTRFS_FS_POSIX_ACL # boolean
-./scripts/config --enable BLK_DEV_DM # tristate
-./scripts/config --enable DM_THIN_PROVISIONING # tristate
-./scripts/config --module OVERLAY_FS # tristate
+./scripts/config --enable BTRFS_FS                     # tristate
+./scripts/config --enable BTRFS_FS_POSIX_ACL           # boolean
+./scripts/config --enable BLK_DEV_DM                   # tristate
+./scripts/config --enable DM_THIN_PROVISIONING         # tristate
+./scripts/config --module OVERLAY_FS                   # tristate
 # From the gentoo ebuild
-./scripts/config --enable SYSVIPC
-./scripts/config --enable IP_VS_PROTO_TCP # boolean
-./scripts/config --enable IP_VS_PROTO_UDP # boolean
+./scripts/config --enable SYSVIPC                      # boolean
+./scripts/config --enable IP_VS_PROTO_TCP              # boolean
+./scripts/config --enable IP_VS_PROTO_UDP              # boolean
 
 # libvirt
-./scripts/config --enable MACVTAP
-
-# systemd -- https://cgit.freedesktop.org/systemd/systemd/tree/README
-./scripts/config --enable DEVTMPFS
-./scripts/config --enable CGROUPS
-./scripts/config --enable INOTIFY_USER
-./scripts/config --enable SIGNALFD
-./scripts/config --enable TIMERFD
-./scripts/config --enable EPOLL
-./scripts/config --enable NET
-./scripts/config --enable SYSFS
-./scripts/config --enable PROC_FS
-./scripts/config --enable FHANDLE
-./scripts/config --disable SYSFS_DEPRECATED
-./scripts/config --set-str UEVENT_HELPER_PATH ""
-./scripts/config --disable FW_LOADER_USER_HELPER
-./scripts/config --enable DMIID
-./scripts/config --enable BLK_DEV_BSG
-./scripts/config --enable NET_NS
-# ./scripts/config --enable DEVPTS_MULTIPLE_INSTANCES # this no longer exists!
-./scripts/config --enable AUTOFS4_FS
-./scripts/config --enable TMPFS_XATTR
-./scripts/config --enable TMPFS_POSIX_ACL
-./scripts/config --enable EXT4_FS_POSIX_ACL # EXT4_POSIX_ACL # SEND A BUG FIX
-./scripts/config --enable BTRFS_FS_POSIX_ACL # SEND A BUG FIX
-./scripts/config --enable SECCOMP
-./scripts/config --enable CHECKPOINT_RESTORE
-./scripts/config --enable CGROUP_SCHED
-./scripts/config --enable FAIR_GROUP_SCHED
-./scripts/config --enable CFS_BANDWIDTH
-./scripts/config --enable SCHEDSTATS
-./scripts/config --enable SCHED_DEBUG
-./scripts/config --enable EFIVAR_FS
-./scripts/config --enable EFI_PARTITION
-# ./scripts/config --disable RT_GROUP_SCHED # docker wants this
-# ./scripts/config --disable AUDIT # conflicts with consolekit
-./scripts/config --enable IPV6
+./scripts/config --module MACVTAP # tristate
 
 # sys-auth/consolekit-1.1.2
-./scripts/config --enable AUDIT # required for AUDITSYSCALL
-./scripts/config --enable AUDITSYSCALL
+./scripts/config --enable AUDIT        # boolean, required for AUDITSYSCALL
+./scripts/config --enable AUDITSYSCALL # boolean
 
 # SCSI disk support
-./scripts/config --enable BLK_DEV_SD
+./scripts/config --enable BLK_DEV_SD # tristate
 
-./scripts/config --enable EXT2_FS
-# "This config option is here only for backward compatibility. ext3 filesystem is now handled by the ext4 driver"
-./scripts/config --disable EXT3_FS
-./scripts/config --enable EXT4_FS
-./scripts/config --enable VFAT_FS
-./scripts/config --enable REISERFS_FS
-./scripts/config --enable XFS_FS
-./scripts/config --enable BTRFS_FS
-./scripts/config --enable FUSE_FS
-./scripts/config --enable ISO9660_FS
-./scripts/config --enable PROC_FS
-./scripts/config --enable TMPFS
+./scripts/config --enable  EXT2_FS     # tristate
+./scripts/config --disable EXT3_FS     # tristate, "This config option is here only for backward compatibility. ext3 filesystem is now handled by the ext4 driver"
+./scripts/config --enable  EXT4_FS     # tristate
+./scripts/config --enable  VFAT_FS     # tristate
+./scripts/config --module  REISERFS_FS # tristate
+./scripts/config --enable  XFS_FS      # tristate
+./scripts/config --enable  BTRFS_FS    # tristate
+./scripts/config --enable  FUSE_FS     # tristate
+./scripts/config --enable  ISO9660_FS  # tristate
+./scripts/config --enable  PROC_FS     # boolean
+./scripts/config --enable  TMPFS       # boolean
 
 # USB input devices
-./scripts/config --enable HID_GENERIC
-./scripts/config --enable USB_HID
-./scripts/config --enable USB_SUPPORT
-./scripts/config --enable USB_XHCI_HCD
-./scripts/config --enable USB_EHCI_HCD
-./scripts/config --enable USB_OHCI_HCD
-./scripts/config --enable USB_UAS # "USB attached SCSI"
+./scripts/config --enable HID_GENERIC  # tristate
+./scripts/config --enable USB_HID      # tristate
+./scripts/config --enable USB_SUPPORT  # boolean
+./scripts/config --enable USB_XHCI_HCD # tristate
+./scripts/config --enable USB_EHCI_HCD # tristate
+./scripts/config --enable USB_OHCI_HCD # tristate
+./scripts/config --enable USB_UAS      # tristate, "USB attached SCSI"
 
 # support 32-bit executables
-./scripts/config --enable IA32_EMULATION
+./scripts/config --enable IA32_EMULATION # boolean
 
 # GPT, EFI, UEFI
-./scripts/config --enable PARTITION_ADVANCED
-./scripts/config --enable EFI_PARTITION
-./scripts/config --enable EFI
-./scripts/config --enable EFI_STUB
-./scripts/config --enable EFI_MIXED
-./scripts/config --enable EFI_VARS
+./scripts/config --enable  PARTITION_ADVANCED # boolean
+./scripts/config --enable  EFI_PARTITION      # boolean
+./scripts/config --enable  EFI                # boolean
+./scripts/config --enable  EFI_STUB           # boolean
+./scripts/config --enable  EFI_MIXED          # boolean
+./scripts/config --enable  EFI_VARS           # tristate
+./scripts/config --disable OSF_PARTITION      # boolean, Alpha servers
+./scripts/config --disable AMIGA_PARTITION    # boolean
+./scripts/config --disable SGI_PARTITION      # boolean
+./scripts/config --disable SUN_PARTITION      # boolean
+./scripts/config --disable KARMA_PARTITION    # boolean
+./scripts/config --enable  MAC_PARTITION      # boolean
 
-./scripts/config --disable OSF_PARTITION # Alpha servers
-./scripts/config --disable AMIGA_PARTITION
-./scripts/config --disable SGI_PARTITION
-./scripts/config --disable SUN_PARTITION
-./scripts/config --disable KARMA_PARTITION
-./scripts/config --enable MAC_PARTITION
-
-./scripts/config --enable MAGIC_SYSRQ
+./scripts/config --enable MAGIC_SYSRQ # boolean
 
 # app-emulation/qemu
-./scripts/config --enable KVM
-./scripts/config --enable VHOST_NET
+./scripts/config --module KVM       # tristate
+./scripts/config --module VHOST_NET # tristate
 
 # https://lwn.net/Articles/680989/
 # https://lwn.net/Articles/681763/
-./scripts/config --enable BLK_WBT
-./scripts/config --enable BLK_WBT_SQ
-./scripts/config --enable BLK_WBT_MQ
+./scripts/config --enable BLK_WBT    # boolean
+./scripts/config --enable BLK_WBT_SQ # boolean
+./scripts/config --enable BLK_WBT_MQ # boolean
 
 # http://algo.ing.unimo.it/people/paolo/disk_sched/
-./scripts/config --module IOSCHED_BFQ
+./scripts/config --module IOSCHED_BFQ # tristate
 
 # https://www.youtube.com/watch?v=y5KPryOHwk8
 # https://en.wikipedia.org/wiki/Active_queue_management
 # https://lwn.net/Articles/616241/
-./scripts/config --module NET_SCH_FQ
-./scripts/config --module NET_SCH_FQ_CODEL
-./scripts/config --module NET_SCH_SFB
+./scripts/config --module NET_SCH_FQ       # tristate
+./scripts/config --module NET_SCH_FQ_CODEL # tristate
+./scripts/config --module NET_SCH_SFB      # tristate
 
 # https://news.ycombinator.com/item?id=14813723
-./scripts/config --module TCP_CONG_BBR
-
+./scripts/config --module TCP_CONG_BBR # tristate
 
 # IP ECMP
-./scripts/config --enable IP_ROUTE_MULTIPATH
+./scripts/config --enable IP_ROUTE_MULTIPATH # boolean
+
 # source-based IP routing
-./scripts/config --enable IP_MULTIPLE_TABLES
+./scripts/config --enable IP_MULTIPLE_TABLES # boolean
 
 # bridging
-./scripts/config --module BRIDGE
-./scripts/config --enable BRIDGE_IGMP_SNOOPING
+./scripts/config --module BRIDGE # tristate
+# multicast
+./scripts/config --enable BRIDGE_IGMP_SNOOPING # boolean
 
 # speed up tcpdump
-./scripts/config --enable BPF_JIT
+./scripts/config --enable BPF_JIT # boolean
 
 # timing packets / ptp (Precision Time Protocol)
-./scripts/config --enable NETWORK_PHY_TIMESTAMPING
+./scripts/config --enable NETWORK_PHY_TIMESTAMPING # boolean
 
-./scripts/config --module IP_VS
-./scripts/config --module BONDING
+./scripts/config --module IP_VS   # tristate
+./scripts/config --module BONDING # tristate
 
 # boot_delay=X support
 ./scripts/config --enable BOOT_PRINTK_DELAY # boolean
@@ -604,9 +584,9 @@ Here's what I do:
 ./scripts/config --module NET_CLS_BPF # tristate
 ./scripts/config --module NET_ACT_BPF # tristate
 ./scripts/config --enable BPF_EVENTS  # boolean
-# /proc/config.gz
-./scripts/config --enable IKCONFIG
-./scripts/config --enable IKCONFIG_PROC
+
+# https://www.phoronix.com/scan.php?page=article&item=linux_2637_video&num=1
+./scripts/config --enable SCHED_AUTOGROUP # boolean
 
 # and so on
 ```
@@ -619,7 +599,7 @@ george@george:/usr/src/linux-stable-git-4.12.8$ ~/kernel-config.sh
 george@george:/usr/src/linux-stable-git-4.12.8$ make olddefconfig
 ```
 
-Pitfall 1: Some configs are implicit -- they are enabled by other configs:
+**Pitfall 1**: Some configs are implicit -- they are enabled by other configs:
 
     Symbol: TAP [=n]                                                                                                                                                                       │   
     Type  : tristate                                                                                                                                                                       │   
@@ -631,7 +611,7 @@ You have to satisfy the "Selected by" expression if you want `CONFIG_TAP` to be
 enabled. `./scripts/config --enable TAP` will appear to work, but `make
 olddefconfig` will nuke it.
 
-Pitfall 2: Some configs depend on others:
+**Pitfall 2**: Some configs depend on others:
 
     Symbol: BRIDGE_NETFILTER [=n]
     Type  : tristate
