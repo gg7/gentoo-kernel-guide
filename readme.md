@@ -631,7 +631,7 @@ Workaround for detecting broken dependencies:
 
     george@george:/usr/src/linux-stable-git-4.12.8$ grep -Po '(?<=--enable )[^# ]+' ~/kernel-config.sh | sed 's/^CONFIG_//' | while read kconf; do if ! grep -q "^CONFIG_$kconf=y" .config; then echo "$kconf not set"; fi; done
 
-TODO: write an script that checks everything.
+TODO: write a script that checks everything.
 
 ## Building and installing the kernel
 
