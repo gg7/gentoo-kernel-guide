@@ -234,7 +234,7 @@ Software like systemd requires certain kernel features to work properly.
 
 As a Gentoo user you've probably seen messages like this one:
 
-    ERROR: setup                                                                                                                                                                                 │
+    ERROR: setup
       CONFIG_AUDITSYSCALL:   is not set when it should be.
 
 Again, `make defconfig` won't cut it.
@@ -601,10 +601,10 @@ george@george:/usr/src/linux-stable-git-4.12.8$ make olddefconfig
 
 **Pitfall 1**: Some configs are implicit -- they are enabled by other configs:
 
-    Symbol: TAP [=n]                                                                                                                                                                       │   
-    Type  : tristate                                                                                                                                                                       │   
-      Defined at drivers/net/Kconfig:304                                                                                                                                                   │   
-      Depends on: NETDEVICES [=y] && NET_CORE [=y]                                                                                                                                         │   
+    Symbol: TAP [=n]
+    Type  : tristate
+      Defined at drivers/net/Kconfig:304
+      Depends on: NETDEVICES [=y] && NET_CORE [=y]
       Selected by: MACVTAP [=n] && NETDEVICES [=y] && NET_CORE [=y] && MACVLAN [=n] && INET [=y] || IPVTAP [=n] && NETDEVICES [=y] && NET_CORE [=y] && IPVLAN [=n] && INET [=y]
 
 You have to satisfy the "Selected by" expression if you want `CONFIG_TAP` to be
