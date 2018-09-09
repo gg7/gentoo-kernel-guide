@@ -167,6 +167,10 @@ This is possibly a bad idea, because now `depclean` could uninstall some require
 
 You should probably add those to `@world`.
 
+### Ebuild alternative
+
+If you want to stick to ebuilds, yet automatically configure your kernels, I suggest looking at https://github.com/jollheef/jollheef-overlay/blob/3a59396be2cbbdb1202e30ac577c3676fa5d9a85/sys-kernel/linux/linux-4.17.4.ebuild for inspiration.
+
 ## Configuring the kernel
 
 Downloading, compiling, and installing the kernel is trivial: you (roughly) do
