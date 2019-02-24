@@ -646,7 +646,7 @@ george@george:/usr/src$ eselect kernel list
 george@george:/usr/src$ sudo eselect kernel set "linux-stable-git-4.12.8"
 george@george:/usr/src$ cd linux
 
-george@george:/usr/src/linux$ /usr/bin/time -v make KCFLAGS="-march=native" -j "$(nproc)" olddefconfig all
+george@george:/usr/src/linux$ nice /usr/bin/time -v make KCFLAGS="-march=native" -j "$(nproc)" olddefconfig all
 
 root@george:/usr/src/linux# (mountpoint -q /boot || mount /boot) && make install modules_install && grub-mkconfig -o /boot/grub/grub.cfg
 root@george:/usr/src/linux# emerge -avtq '@module-rebuild'
