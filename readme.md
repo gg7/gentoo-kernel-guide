@@ -650,6 +650,9 @@ george@george:/usr/src/linux$ nice /usr/bin/time -v make KCFLAGS="-march=native"
 
 root@george:/usr/src/linux# (mountpoint -q /boot || mount /boot) && make install modules_install && grub-mkconfig -o /boot/grub/grub.cfg
 root@george:/usr/src/linux# emerge -avtq '@module-rebuild'
+
+# if you need an initrd
+george@george:/usr/src$ sudo dracut -a crypt -o zfs "/boot/initramfs-$v.img" --kver "$v" && sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 # Plans for the future
