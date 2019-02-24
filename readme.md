@@ -553,9 +553,21 @@ Here's what I do:
 # https://www.youtube.com/watch?v=y5KPryOHwk8
 # https://en.wikipedia.org/wiki/Active_queue_management
 # https://lwn.net/Articles/616241/
+./scripts/config --enable NET_SCHED        # boolean
+./scripts/config --module IFB              # tristate
+./scripts/config --module NET_SCH_HTB      # tristate
+./scripts/config --module NET_SCH_CBQ      # tristate
+./scripts/config --module NET_SCH_HFSC     # tristate
 ./scripts/config --module NET_SCH_FQ       # tristate
 ./scripts/config --module NET_SCH_FQ_CODEL # tristate
 ./scripts/config --module NET_SCH_SFB      # tristate
+./scripts/config --module NET_SCH_INGRESS  # tristate
+./scripts/config --module NET_CLS_U32      # tristate
+
+# https://lwn.net/Articles/758353/
+./scripts/config --module NET_SCH_CAKE # tristate
+./scripts/config --module NET_ACT_MIRRED # tristate
+./scripts/config --module NET_SCH_PIE # tristate
 
 # https://news.ycombinator.com/item?id=14813723
 ./scripts/config --module TCP_CONG_BBR # tristate
@@ -583,11 +595,22 @@ Here's what I do:
 # boot_delay=X support
 ./scripts/config --enable BOOT_PRINTK_DELAY # boolean
 
-# bcc
-./scripts/config --enable BPF_SYSCALL # boolean
-./scripts/config --module NET_CLS_BPF # tristate
-./scripts/config --module NET_ACT_BPF # tristate
-./scripts/config --enable BPF_EVENTS  # boolean
+# thp, compaction
+./scripts/config --enable TRANSPARENT_HUGEPAGE
+./scripts/config --enable TRANSPARENT_HUGEPAGE_ALWAYS
+
+# dev-util/bcc
+./scripts/config --enable BPF_SYSCALL     # boolean
+./scripts/config --module NET_CLS_BPF     # tristate
+./scripts/config --module NET_ACT_BPF     # tristate
+./scripts/config --enable BPF_EVENTS      # boolean
+./scripts/config --enable DEBUG_INFO      # boolean
+./scripts/config --enable FUNCTION_TRACER # boolean
+./scripts/config --enable KALLSYMS_ALL    # boolean
+
+# https://lwn.net/Articles/759781/
+./scripts/config --enable PSI # bool
+./scripts/config --enable PSI_DEFAULT_DISABLED # bool
 
 # https://www.phoronix.com/scan.php?page=article&item=linux_2637_video&num=1
 ./scripts/config --enable SCHED_AUTOGROUP # boolean
