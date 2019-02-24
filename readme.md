@@ -676,6 +676,10 @@ root@george:/usr/src/linux# emerge -avtq '@module-rebuild'
 
 # if you need an initrd
 george@george:/usr/src$ sudo dracut -a crypt -o zfs "/boot/initramfs-$v.img" --kver "$v" && sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+# optional tools
+george@george:/usr/src$ make -C ./tools/power/x86/turbostat KCFLAGS="-march=native"
+george@george:/usr/src$ make -C ./tools/perf KCFLAGS="-march=native"
 ```
 
 # Plans for the future
