@@ -676,18 +676,23 @@ Don't forget to update your microcode. E.g. for Intel CPUs:
 george@george:/usr/src$ eselect kernel list
 george@george:/usr/src$ sudo eselect kernel set "linux-stable-git-4.12.8"
 george@george:/usr/src$ cd linux
-
+george@george:/usr/src/linux$ git am -3 ~/kernel-patches/*.patch
 george@george:/usr/src/linux$ nice /usr/bin/time -v make KCFLAGS="-march=native" -j "$(nproc)" olddefconfig all
 
-root@george:/usr/src/linux# (mountpoint -q /boot || mount /boot) && make install modules_install && grub-mkconfig -o /boot/grub/grub.cfg
+root@george:/usr/src/linux# (mountpoint -q /boot || mount /boot) && make install modules_install
 root@george:/usr/src/linux# emerge -avtq '@module-rebuild'
 
-# if you need an initrd
-george@george:~$ sudo dracut -a crypt -o zfs "/boot/initramfs-$v.img" --kver "$v" && sudo grub-mkconfig -o /boot/grub/grub.cfg
+# if you need an initrd:
+root@george:/usr/src/linux# dracut -a crypt -o zfs "/boot/initramfs-$(make kernelrelease).img" --kver "$(make kernelrelease)"
 
-# optional tools
-george@george:/usr/src/linux$ make -C ./tools/power/x86/turbostat KCFLAGS="-march=native"
-george@george:/usr/src/linux$ make -C ./tools/perf KCFLAGS="-march=native"
+# optional cleanup:
+root@george:/usr/src/linux# eclean-kernel --list-kernels && eclean-kernel --ask --destructive --exclude config
+
+root@george:/usr/src/linux# grub-mkconfig -o /boot/grub/grub.cfg
+
+# optional tools:
+george@george:/usr/src/linux$ make KCFLAGS="-march=native" -j "$(nproc)" -C ./tools/power/x86/turbostat
+george@george:/usr/src/linux$ make KCFLAGS="-march=native" -j "$(nproc)" -C ./tools/perf
 ```
 
 # Plans for the future
