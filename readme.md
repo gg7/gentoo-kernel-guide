@@ -660,6 +660,14 @@ Workaround for detecting broken dependencies:
 
 TODO: write a script that checks everything.
 
+Don't forget to update your microcode. E.g. for Intel CPUs:
+
+```bash
+./scripts/config --enable FIRMWARE_IN_KERNEL
+./scripts/config --set-str EXTRA_FIRMWARE "$(iucode_tool -L /lib/firmware/intel-ucode | grep "$(iucode_tool -S 2>&1 | grep -Po '(?<=signature ).*$')" -B 1 | grep -Po '(?<=/lib/firmware/)intel-ucode/.*')"
+./scripts/config --set-str EXTRA_FIRMWARE_DIR "/lib/firmware"
+```
+
 ## Building and installing the kernel
 
 `make install` requires `sys-apps/debianutils`.
