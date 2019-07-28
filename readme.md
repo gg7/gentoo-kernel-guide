@@ -135,7 +135,7 @@ For every version I'm interested in (e.g. `4.12.8`):
 
 ```
 george@george:/usr/src$ git -C linux-stable-git-bare fetch --all --tags
-george@george:/usr/src$ git -C linux-stable-git-bare ls-remote --refs --tags | less
+george@george:/usr/src$ git -C linux-stable-git-bare tag --sort=-creatordate
 
 george@george:/usr/src$ v="4.12.8"
 george@george:/usr/src$ sudo mkdir "linux-stable-git-$v" && sudo chown "$(id -un):$(id -gn)" "linux-stable-git-$v"
