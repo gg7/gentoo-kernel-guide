@@ -131,13 +131,19 @@ george@george:/usr/src$ sudo mkdir -p linux-stable-git-bare && sudo chown "$(id 
 george@george:/usr/src$ git clone --mirror --bare 'https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git' linux-stable-git-bare
 ```
 
-For every version I'm interested in (e.g. `4.12.8`):
+Then we pick 1+ versions:
+
+```bash
+george@george:/usr/src$ git -C linux-stable-git-bare fetch --all --tags
+george@george:/usr/src$ git -C linux-stable-git-bare tag --sort=-creatordate   # you can also consult https://www.kernel.org/
+
+# Example with v4.12.8:
+george@george:/usr/src$ v="4.12.8"
+```
+
+Create a folder per version:
 
 ```
-george@george:/usr/src$ git -C linux-stable-git-bare fetch --all --tags
-george@george:/usr/src$ git -C linux-stable-git-bare tag --sort=-creatordate
-
-george@george:/usr/src$ v="4.12.8"
 george@george:/usr/src$ sudo mkdir "linux-stable-git-$v" && sudo chown "$(id -un):$(id -gn)" "linux-stable-git-$v"
 george@george:/usr/src$ git clone --single-branch --branch "v$v" linux-stable-git-bare/ "linux-stable-git-$v"
 ```
