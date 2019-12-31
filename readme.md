@@ -706,3 +706,7 @@ george@george:/usr/src/linux$ make KCFLAGS="-march=native" -j "$(nproc)" -C ./to
 * A better `scripts/config` application, with proper dependency management
   (e.g. by utilising
   [`ulfalizer/Kconfiglib`](https://github.com/ulfalizer/Kconfiglib)).
+
+# Derivative projects
+
+* [Korean translation](https://withjeon.com/gentoo-kernel-guide-ko/) by @whjeon329
