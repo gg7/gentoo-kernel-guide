@@ -704,3 +704,5 @@ george@george:/usr/src/linux$ make KCFLAGS="-march=native" -j "$(nproc)" -C ./to
 # Plans for the future
 
 * A better `scripts/config` application, with proper dependency management
+  (e.g. by utilising
+  [`ulfalizer/Kconfiglib`](https://github.com/ulfalizer/Kconfiglib)).
