@@ -709,4 +709,4 @@ george@george:/usr/src/linux$ make KCFLAGS="-march=native" -j "$(nproc)" -C ./to
 
 # Derivative projects
 
-* [Korean translation](https://withjeon.com/gentoo-kernel-guide-ko/) by @whjeon329
+* [Korean translation](https://whjeon.com/gentoo-vanilla-kernel/) by @devwhjeon
