@@ -93,11 +93,10 @@ example: without `1500_XATTR_USER_PREFIX.patch` portage will spit out a lot of
 `Failed to set XATTR_PAX markings` errors if your `/var/tmp/portage` is on a
 `tmpfs` mount.
 
-The Gentoo kernel team is really good ([Greg
-Kroah-Hartman](https://en.wikipedia.org/wiki/Greg_Kroah-Hartman) is a member!).
+The Gentoo kernel team is really good.
 They definitely add value and are more knowledgable than I am.  However, I'd
 rather get my kernel from [kernel.org](https://www.kernel.org/) directly with
-`git` (yes, even though gregkh maintains `linux-stable`).
+`git`.
 
 Why?
 
